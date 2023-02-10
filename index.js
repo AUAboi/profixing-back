@@ -20,7 +20,7 @@ mongoose.connect("mongodb+srv://Rizwan:Rizwanmirza1@cluster0.lv75msq.mongodb.net
 if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({ path: "./server/config/.env" });
 }
-const PORT = 8080 || process.env.PORT;
+const PORT =  process.env.PORT || 4600;
 App.use(express.json());
 App.use(
   bodyParser.urlencoded({
