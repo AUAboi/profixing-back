@@ -37,9 +37,7 @@ Links.post("/login", async (req, res, next) => {
     
     res.status(200).json("test")
     
-    } else {
-      res.status(400).json("User Not Found");
-    }
+
   } catch (e) {
     res.status(500).json(e);
   }
