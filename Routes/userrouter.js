@@ -48,7 +48,7 @@ Links.post("/login", async (req, res, next) => {
         res.status(400).json("password not Match")
         return;
       } else {
-        res.json({
+        res.status(200).json({
           user,
           token,
         });
