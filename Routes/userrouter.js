@@ -33,7 +33,7 @@ Links.post("/login", async (req, res, next) => {
 
   try {
     if (!req.body.email || !req.body.password) {
-      res.status(404).json("Empty");
+      res.status(404).json(req);
       return;
     }
     const user = await User.findOne({ email: req.body.email }).select(
