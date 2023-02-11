@@ -30,14 +30,20 @@ Links.post("/", async (req, res, next) => {
   }
 });
 Links.post("/login", async (req, res, next) => {
-  res.status(200).json("early");
-  return;
+
   try {
     if (!req.body.email || !req.body.password) {
       res.status(404).json("User Not Found");
     }
+    const user = await User.findOne({ email: req.body.email }).select(
+      "+password"
+    );
     
-    res.status(200).json("test")
+    res.status(200).json(user)
+   if(){
+    } else {
+      res.status(400).json("User Not Found");
+    }
     
 
   } catch (e) {
