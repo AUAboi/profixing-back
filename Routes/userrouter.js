@@ -34,21 +34,9 @@ Links.post("/login", async (req, res, next) => {
     if (!req.body.email || !req.body.password) {
       res.status(404).json("User Not Found");
     }
-    const user = await User.findOne({ email: req.body.email }).select(
-      "+password"
-    );
-      if (user !== null) {
-      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "2h",
-      });
-      if (req.body.password !== user.password) {
-        res.status(400).json("password not Match");
-      } else {
-        res.json({
-          user,
-          token,
-        });
-      }
+    
+    res.status(200).json("test")
+    
     } else {
       res.status(400).json("User Not Found");
     }
@@ -62,7 +50,7 @@ Links.get("/logout", async (req, res, next) => {
       expires: new Date(Date.now()),
       httpOnly: true,
     });
-    res.json({
+    res.status(200).json({
       success: true,
       message: "Log Out succees",
     });
