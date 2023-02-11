@@ -39,10 +39,12 @@ Links.post("/login", async (req, res, next) => {
       "+password"
     );
     
-    res.status(200).json(user)
-   if(){
+    res.status(200).json(user);
+    return;
+   if(user){
     } else {
       res.status(400).json("User Not Found");
+      return;
     }
     
 
