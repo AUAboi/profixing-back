@@ -31,7 +31,8 @@ exports.createOrders = async (req, res, next) => {
     const order = new Order({
       date: req.body.date,
       time: req.body.time,
-      onSurvey: req.body.onSurvey,
+      instruction: req.body.instruction,
+      duration: req.body.duration,
       units: req.body.units,
       subTotal: req.body.subTotal,
       discount: req.body.discount,
@@ -40,13 +41,10 @@ exports.createOrders = async (req, res, next) => {
       furnished: req.body.furnished,
       location: {
         address: req.body.location.address,
-        building: req.body.location.building,
-        street: req.body.location.street,
-        villNumber: req.body.location.villNumber,
         city: req.body.location.city,
         country: req.body.location.country,
       },
-      serviceName: req.body.serviceName,
+      username: req.body.username,
     });
     order.save((err, odr) => {
       if (err) {
