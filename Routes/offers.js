@@ -1,9 +1,11 @@
 const express = require("express");
-const { isauthantication } = require("../middleware/authentication");
 const Route = express.Router();
 const Offer = require("../model/offers");
-
-Route.post("/create", isauthantication, (req, res, next) => {
+const {
+  isauthantication,
+  authorizedRoles,
+} = require("../middleware/authentication");
+Route.post("/create", (req, res, next) => {
   try {
     const newOffer = new Offer({
       name: req.body.name,
@@ -42,7 +44,7 @@ Route.post("/getByName", isauthantication, (req, res) => {
     return res.status(500).json(error);
   }
 });
-Route.post("/allOffers", (req, res) => {
+Route.post("/allOffers", isauthantication, (req, res) => {
   try {
     Offer.find().exec((err, data) => {
       if (err) {
@@ -69,10 +71,9 @@ Route.delete("/:id/deleteOffers", isauthantication, (req, res) => {
   }
 });
 Route.put("/:id/updateOffers", isauthantication, (req, res) => {
-  console.log(req.body)
   try {
     Offer.findOneAndUpdate(
-      { _id: req.params._id },
+      { _id: req.params.id },
       {
         $set: req.body,
       },
