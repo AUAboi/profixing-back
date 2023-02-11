@@ -33,7 +33,8 @@ Links.post("/login", async (req, res, next) => {
 
   try {
     if (!req.body.email || !req.body.password) {
-      res.status(404).json("User Not Found");
+      res.status(404).json("Empty");
+      return;
     }
     const user = await User.findOne({ email: req.body.email }).select(
       "+password"
