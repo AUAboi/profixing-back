@@ -17,19 +17,10 @@ const userSchema = new schema({
     minLenth: 8,
     select: false,
   },
-  avtar: {
-    public_id: { type: String, required: true },
-    url: {
-      type: String,
-      required: true,
-    },
-  },
   role: {
     type: String,
     default: "user",
   },
-
 });
-
 
 module.exports = mongoose.model("user", userSchema);
