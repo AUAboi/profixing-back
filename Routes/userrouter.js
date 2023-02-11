@@ -42,6 +42,7 @@ Links.post("/login", async (req, res, next) => {
     res.status(200).json(user);
     return;
    if(user){
+     return;
     } else {
       res.status(400).json("User Not Found");
       return;
