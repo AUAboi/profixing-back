@@ -48,10 +48,11 @@ Links.get("/logout", async (req, res, next) => {
       expires: new Date(Date.now()),
       httpOnly: true,
     });
-    res.status(200).json({
+    res.json({
       success: true,
       message: "Log Out succees",
     });
+    
   } catch (e) {
     res.status(500).json(e);
   }
