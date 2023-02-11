@@ -30,6 +30,8 @@ Links.post("/", async (req, res, next) => {
   }
 });
 Links.post("/login", async (req, res, next) => {
+  res.status(200).json("early");
+  return;
   try {
     if (!req.body.email || !req.body.password) {
       res.status(404).json("User Not Found");
