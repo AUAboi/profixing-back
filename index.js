@@ -17,7 +17,7 @@ var cors = require("cors");
 App.use(cors());
 App.use(cookieParser());
 mongoose
-  .connect(uri, {
+  .connect(process.end.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
