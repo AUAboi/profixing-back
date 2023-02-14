@@ -17,7 +17,7 @@ var cors = require("cors");
 App.use(cors());
 App.use(cookieParser());
 mongoose
-  .connect(uri, {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -27,7 +27,7 @@ mongoose
 if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({ path: "./server/config/.env" });
 }
-const PORT = 8080 || process.env.PORT;
+const PORT =  process.env.PORT || 4600;
 App.use(express.json());
 App.use(
   bodyParser.urlencoded({

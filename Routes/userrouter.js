@@ -29,18 +29,38 @@ Links.post("/", async (req, res, next) => {
     res.status(500).json(e);
   }
 });
+
 Links.post("/login", async (req, res, next) => {
-  try {
-    if (!req.body.email || !req.body.password) {
-      res.status(404).json("User Not Found");
-    }
-    const user = await User.findOne({ email: req.body.email }).select(
-      "+password"
-    );
-    res.status(200).json("{"sucess": true}")
-  } catch (e) {
-    res.status(500).json(e);
+
+  if (!req.body.email || !req.body.password) {
+    res.status(404).json("Empty");
+    return;
   }
+  const user = await User.findOne({ email: req.body.email }).select(
+    "+password"
+  );
+
+  if (user !== null) {
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "2h",
+    });
+    if (req.body.password !== user.password) {
+      res.status(400).json("password not Match")
+      return;
+    } else {
+      res.status(200).json({
+        user,
+        token,
+      });
+      return;
+    }
+  } else {
+    res.status(400).json("User Not Found");
+    return;
+  }
+
+
+
 });
 Links.get("/logout", async (req, res, next) => {
   try {
@@ -48,11 +68,11 @@ Links.get("/logout", async (req, res, next) => {
       expires: new Date(Date.now()),
       httpOnly: true,
     });
-    res.json({
+    res.status(200).json({
       success: true,
       message: "Log Out succees",
     });
-    
+
   } catch (e) {
     res.status(500).json(e);
   }
